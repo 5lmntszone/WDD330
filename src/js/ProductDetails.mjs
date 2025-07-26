@@ -36,7 +36,7 @@ export default class ProductDetails {
     document.getElementById('description').innerHTML = this.product.DescriptionHtmlSimple;
 
     const img = document.getElementById('image');
-    img.setAttribute('src', this.product.Image);
+    img.setAttribute('src', `../${this.product.Image}`);
     img.setAttribute('alt', this.product.Name);
 
     document.getElementById('addToCart').dataset.id = this.product.Id;
