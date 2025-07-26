@@ -1,12 +1,11 @@
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
+import Alert from './Alert';
 
-// Create the data source for tents
 const dataSource = new ProductData('tents');
-
-// Get the element where the list will be displayed
 const listElement = document.querySelector('.product-list');
-
-// Create an instance of ProductList and initialize it
 const productList = new ProductList('tents', dataSource, listElement);
+const alerts = new Alert('json/alerts.json');
+
+alerts.init();
 productList.init();
