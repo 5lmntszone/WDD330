@@ -7,14 +7,13 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  // Since the cart page is inside the "cart/" folder,
+  // we always need to go up one level for images.
   const imagePath = `../${item.Image}`;
 
   return `<li class="cart-card divider">
     <a href="../product_pages/?product=${item.Id}" class="cart-card__image">
-      <img
-        src="${imagePath}"
-        alt="${item.Name}"
-      />
+      <img src="${imagePath}" alt="${item.Name}" />
     </a>
     <a href="../product_pages/?product=${item.Id}">
       <h2 class="card__name">${item.Name}</h2>
