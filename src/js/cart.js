@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
@@ -7,8 +7,6 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
-  // Since the cart page is inside the "cart/" folder,
-  // we always need to go up one level for images.
   const imagePath = `../${item.Image}`;
 
   return `<li class="cart-card divider">
@@ -24,4 +22,7 @@ function cartItemTemplate(item) {
   </li>`;
 }
 
-renderCartContents();
+document.addEventListener("DOMContentLoaded", () => {
+  loadHeaderFooter();
+  renderCartContents();
+});
