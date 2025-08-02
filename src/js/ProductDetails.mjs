@@ -10,10 +10,8 @@ export default class ProductDetails {
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
 
-    // Render product details to the page
     this.renderProductDetails();
 
-    // Add event listener to Add to Cart button
     document
       .getElementById('addToCart')
       .addEventListener('click', this.addProductToCart.bind(this));
@@ -23,7 +21,7 @@ export default class ProductDetails {
     const cartItems = getLocalStorage('so-cart') || [];
     cartItems.push(this.product);
     setLocalStorage('so-cart', cartItems);
-    alert(`${this.product.Name} added to cart!`)
+    alert(`${this.product.Name} added to cart!`);
   }
 
   renderProductDetails() {
@@ -36,7 +34,7 @@ export default class ProductDetails {
     document.getElementById('description').innerHTML = this.product.DescriptionHtmlSimple;
 
     const img = document.getElementById('image');
-    img.setAttribute('src', `../${this.product.Image}`);
+    img.setAttribute('src', this.product.Images.PrimaryLarge);
     img.setAttribute('alt', this.product.Name);
 
     document.getElementById('addToCart').dataset.id = this.product.Id;
