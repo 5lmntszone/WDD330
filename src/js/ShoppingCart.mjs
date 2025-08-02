@@ -15,6 +15,11 @@ export default class ShoppingCart {
     const template = document.getElementById("cart-item-template");
     this.listElement.innerHTML = ""; 
 
+    if (cartItems.length === 0) {
+      this.listElement.innerHTML = "<li>Your cart is empty.</li>";
+      return;
+    }
+
     cartItems.forEach((item) => {
       const clone = template.content.cloneNode(true);
 
@@ -25,9 +30,10 @@ export default class ShoppingCart {
       clone.querySelector("a + a").href = `../product_pages/index.html?product=${item.Id}`;
       clone.querySelector(".card__name").textContent = item.Name;
 
+      const quantity = item.quantity || 1;
       clone.querySelector(".cart-card__color").textContent = item.Colors[0].ColorName;
-      clone.querySelector(".cart-card__quantity").textContent = `qty: 1`;
-      clone.querySelector(".cart-card__price").textContent = `$${item.FinalPrice}`;
+      clone.querySelector(".cart-card__quantity").textContent = `qty: ${quantity}`;
+      clone.querySelector(".cart-card__price").textContent = `$${(item.FinalPrice * quantity).toFixed(2)}`;
 
       this.listElement.appendChild(clone);
     });

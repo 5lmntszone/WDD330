@@ -18,11 +18,23 @@ export default class ProductDetails {
   }
 
   addProductToCart() {
-    const cartItems = getLocalStorage('so-cart') || [];
-    cartItems.push(this.product);
+    let cartItems = getLocalStorage('so-cart') || [];
+  
+    const existingItemIndex = cartItems.findIndex(item => item.Id === this.product.Id);
+  
+    if (existingItemIndex > -1) {
+      if (!cartItems[existingItemIndex].quantity) {
+        cartItems[existingItemIndex].quantity = 1; 
+      }
+      cartItems[existingItemIndex].quantity += 1;
+    } else {
+      this.product.quantity = 1;
+      cartItems.push(this.product);
+    }
+  
     setLocalStorage('so-cart', cartItems);
     alert(`${this.product.Name} added to cart!`);
-  }
+  }  
 
   renderProductDetails() {
     document.querySelector('title').textContent = `Sleep Outside | ${this.product.Name}`;
