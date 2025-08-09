@@ -263,20 +263,44 @@ footer {
 }
 
 .categories {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
   margin: 2rem 0;
+  text-align: center;
 }
 
-.categories .category img {
-  width: 80px;
-  height: auto;
+.categories a {
+  text-decoration: none;
+  color: #333;
 }
 
-.categories .category p {
-  margin-top: 0.5rem;
-  font-weight: bold;
+.categories img {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin: 0 auto 0.5rem;
 }
+
+.categories p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+#cart-icon {
+  transform-box: fill-box;      
+  transform-origin: center;     
+}
+
+.cart-icon.bump { 
+  animation: cart-bump 400ms ease; 
+}
+
+@keyframes cart-bump {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.15) rotate(-3deg); }
+  50% { transform: scale(0.95) rotate(2deg); }
+  100% { transform: scale(1); }
+}
+
+
 

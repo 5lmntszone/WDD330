@@ -5,9 +5,11 @@ export function qs(selector, parent = document) {
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
     event.preventDefault();
@@ -39,7 +41,6 @@ export function renderListWithTemplate(
 
 export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
-
   if (callback) {
     callback(data);
   }
@@ -52,11 +53,31 @@ export async function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("/partials/header.html");
-  const headerElement = document.querySelector("#main-header");
-  renderWithTemplate(headerTemplate, headerElement);
+  const base = window.location.pathname.includes("cart") ||
+               window.location.pathname.includes("product_pages") ||
+               window.location.pathname.includes("product_listing")
+    ? "../"
+    : "./";
 
-  const footerTemplate = await loadTemplate("/partials/footer.html");
-  const footerElement = document.querySelector("#main-footer");
-  renderWithTemplate(footerTemplate, footerElement);
-}
+    const headerTemplate = await loadTemplate(`${base}partials/header.html`);
+    const headerElement = document.querySelector("#main-header");
+    const adjustedHeader = headerTemplate
+      .replace(/src="\.\//g, `src="${base}`)
+      .replace(/href="\.\//g, `href="${base}`);
+    renderWithTemplate(adjustedHeader, headerElement);
+  
+    const footerTemplate = await loadTemplate(`${base}partials/footer.html`);
+    const footerElement = document.querySelector("#main-footer");
+    renderWithTemplate(footerTemplate, footerElement);
+  }
+
+export function bumpCartIcon() {
+    const icon = document.querySelector('#cart-icon');
+    if (!icon) return;
+    icon.classList.remove('bump');
+    void icon.offsetWidth; 
+    icon.classList.add('bump');
+    icon.addEventListener('animationend', () => {
+      icon.classList.remove('bump');
+    }, { once: true });
+}  
