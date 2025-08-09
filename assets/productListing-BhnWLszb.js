@@ -1,1 +1,0 @@
-import{l as e,a as r}from"./utils-CF2DXeiu.js";import{P as c}from"./ProductData-41W_5H-H.js";import{P as a}from"./ProductList-CsOh0Txh.js";e();const o=r("category")||"tents",s=new c,n=document.querySelector(".product-list"),i=new a(o,s,n);i.init();const t=document.querySelector("h2");t&&(t.textContent=`Top Products: ${o}`);
